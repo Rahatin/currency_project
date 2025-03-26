@@ -82,7 +82,7 @@
             data.forEach(currency => {
                 let newRow = table.insertRow();
                 newRow.innerHTML = `
-                    <td><img src="https://flagcdn.com/${currency.abbreviation.toLowerCase()}.svg" alt="${currency.country}" width="25"> ${currency.country}</td>
+                    <td><img src="https://flagcdn.com/${currency.abbreviation.toLowerCase()}.svg" alt="${currency.abbreviation}" width="25"> ${currency.country}</td>
                     <td>${currency.currency}</td>
                     <td>${currency.buy_rate}</td>
                     <td>${currency.sell_rate}</td>
