@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COXSHEBA technology</title>
+    <link rel="stylesheet" href="style.css">    
+</head>
+
+<body>
+
+    <div class="header">
+        <div>COXSHEBA MONYE CHANGER LTD.</div>
+        <div><span id="updated-time"></span></div>
+    </div>
+
+    <table class="board">
+
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>Buy Rate</th>
+                <th>Sell Rate</th>
+            </tr>
+        </thead>
+        <tbody id="boardDynamicRow">
+            <!-- <tr>
+                <td><img src="https://flagcdn.com/us.svg" alt="USA" width="25"> USD</td>
+                <td>United States Dollar</td>
+                <td>121.00</td>
+                <td>122.00</td>
+            </tr>
+            <tr>
+                <td><img src="https://flagcdn.com/ca.svg" alt="Canada" width="25"> CAD</td>
+                <td>Canadian Dollar</td>
+                <td>84.24</td>
+                <td>85.46</td>
+            </tr>  -->
+        </tbody>
+        
+    
+
+    </table>
+
+    <div class="notice">
+        Attention: All currency exchange rates are subject to change without prior notice.
+    </div>
+    <div class="footer">
+        Announcements here...
+
+    </div>
+
+    <script>
+
+        // Display dynamic date/time
+        const now = new Date();
+        const options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true };
+        document.getElementById('updated-time').innerText = now.toLocaleString('en-US', options);
+
+
+
+
+        async function fetchCurrencies() {
+            try {
+                let response = await fetch("http://127.0.0.1:8000/currencies"); // Replace with your actual API URL
+    
+                if (!response.ok) {
+                    throw new Error("API not available, using dummy data...");
+                }
+    
+                let data = await response.json(); // Real API response
+    
+                updateTable(data);
+            
+            } catch (error) {
+                //console.warn(error.message); // Show error in console
+    
+                // Dummy response (mock data for development)
+                // let dummyData = [
+                //     { country: "USA", currency: "United States Dollar", abbreviation: "US", buyRate: 121.00, sellRate: 122.00 },
+                //     { country: "Canada", currency: "Canadian Dollar", abbreviation: "CA", buyRate: 84.24, sellRate: 85.46 },
+                //     { country: "UK", currency: "British Pound", abbreviation: "GB", buyRate: 150.75, sellRate: 152.00 }
+                
+                // ];
+    
+                //  updateTable(dummyData); // Load dummy data if API fails
+            }
+        }
+
+        function updateTable(data) {
+        
+        let table = document.getElementById("boardDynamicRow");
+        table.innerHTML = ""; // Clear old data
+
+        data.forEach(currency => {
+            let newRow = table.insertRow();
+            let flagCode = currency.abbreviation.toLowerCase();
+            newRow.innerHTML = `
+                 <td>
+                    ${currency.abbreviation}<br>
+                   ${currency.country}  ${currency.currency}<br>
+                    <img src="https://flagcdn.com/${flagCode}.svg" alt="${currency.country}" width="25">
+                </td>
+                <td class="rate">${currency.buy_rate}</td>
+                <td class="rate">${currency.sell_rate}</td>
+                `;
+        });
+
+        // Update currency count
+        //document.querySelector(".stats strong").innerText = data.length;
+    }
+
+    // Call function on page load
+    document.addEventListener("DOMContentLoaded", fetchCurrencies);
+
+   </script>
+
+</body>
+
+</html>

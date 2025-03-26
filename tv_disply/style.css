@@ -1,0 +1,55 @@
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+}
+
+.header {
+    background: #2e6e1c;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.board {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+.board th, .board td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.board th {
+    background: #e0e0e0;
+}
+
+.board td img {
+    width: 30px;
+    vertical-align: middle;
+}
+
+.footer {
+    background: #2e6e1c;
+    color: white;
+    padding: 10px 20px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.notice {
+    padding: 10px 20px;
+    font-size: 12px;
+    color: #555;
+}
+
+.rate {
+    font-weight: bold;
+    font-size: 18px;
+}

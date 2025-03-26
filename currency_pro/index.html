@@ -125,7 +125,7 @@
             let table = document.getElementById("currencyTable");
             let newRow = table.insertRow();
             newRow.innerHTML = `
-                <td><img src="https://flagcdn.com/${flagCode}.svg" alt="${country}" width="25"> ${abbreviation}</td>
+                <td><img src="https://flagcdn.com/${flagCode}.svg" alt="${abbreviation}" width="25"> ${country}</td>
                 <td>${currency}</td>
                 <td>${buy_rate}</td>
                 <td>${sell_rate}</td>
@@ -152,12 +152,12 @@
                 let countryCode = flagImg ? flagImg.src.split("/").pop().split(".")[0] : "";
     
                 data.push({
-                    country: altText,
-                    // country: cells[0].innerText.trim(),
+                    //country: altText,
+                    country: cells[0].innerText.trim(),
                     currency: cells[1].innerText.trim(),
                     buy_rate: parseFloat(cells[2].innerText.trim()),
                     sell_rate: parseFloat(cells[3].innerText.trim()),
-                    abbreviation: countryCode
+                    abbreviation: altText
                 });
             }
 
