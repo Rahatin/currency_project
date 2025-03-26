@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+        }
+
+        .header {
+            background-color: #2e6f26;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 500px;
+            background: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(3, 190, 50, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .code-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .code {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .generate-btn {
+            background: #333;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .colors {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .color {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 10px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .selected {
+            border: 2px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+      XYZ TV Display Settings
+    </div>
+
+    <div class="container">
+        <p>View the Currency Rates Display using a smart TV browser at <br> 
+        <a href="" target="_blank"></a></p>
+
+        <div class="form-group">
+            <label>Display Code</label>
+            <div class="code-group">
+                <div class="code" id="displayCode">013547</div>
+                <button class="generate-btn" onclick="generateCode()">Generate</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Color Scheme</label>
+            <div class="colors" id="colorPicker">
+                <div class="color" style="background:#000000;" data-color="#000000"></div>
+                <div class="color" style="background:#f9f7fa;" data-color="#f9f7fa"></div>
+                <div class="color" style="background:#4caf50;" data-color="#4caf50"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>XYZ TV Screen - Title Labels:</label>
+            <input type="text" placeholder="Country" value="">
+            <input type="text" placeholder="Buy Rate" value="">
+            <input type="text" placeholder="Sell Rate" value="">
+        </div>
+
+        <div class="form-group">
+            <label>XYZ Rates Layout:</label>
+            <div class="checkbox-group">
+                <input type="radio" name="layout" id="oneColumn"> <label for="oneColumn">1 - column</label>
+                <input type="radio" name="layout" id="twoColumn"> <label for="twoColumn">2 - column</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>XYZ TV Screen Design:</label>
+            <div class="checkbox-group">
+                <input type="radio" name="design" id="whiteBG"> <label for="whiteBG">#1 White Background</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="radio" name="design" id="blackBG"> <label for="blackBG">#2 Black Background</label>
+            </div>
+        </div>
+
+        <button class="save-btn">Save</button>
+    </div>
+
+    <script>
+        function generateCode() {
+            const randomCode = Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('displayCode').innerText = randomCode;
+        }
+
+        const colors = document.querySelectorAll('.color');
+        colors.forEach(color => {
+            color.addEventListener('click', () => {
+                colors.forEach(c => c.classList.remove('selected'));
+                color.classList.add('selected');
+                document.body.style.backgroundColor = color.getAttribute('data-color');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Currency</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+        }
+
+        .header {
+            background-color: #2e6b23;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        .radio {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .radio input {
+            margin-right: 8px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            width: 48%;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .cancel-btn {
+            background-color: #333;
+            color: white;
+        }
+
+        .update-btn {
+            background-color: #2e6b23;
+            color: white;
+        }
+
+        .flag {
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        .rate-info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .rate-info a {
+            color: #2e6b23;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        Edit Currency
+    </div>
+    <div class="container">
+        <label>Country:</label>
+        <input type="text" value="">
+
+        <label>Currency Name:</label>
+        <input type="text" value="">
+
+        <label>Abbreviation:</label>
+        <input type="text" value="">
+
+        <div class="radio">
+            <input type="radio" checked> Manual Update
+        </div>
+
+        <label>Buy:</label>
+        <input type="number" value="">
+
+        <label>Sell:</label>
+        <input type="number" value="">
+
+        <div class="buttons">
+            <button class="cancel-btn">✖ Cancel</button>
+            <button class="update-btn">✔ Update</button>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.update-btn').addEventListener('click', () => {
+            let country = document.querySelector("input:nth-of-type(1)").value.trim();
+            let currency = document.querySelector("input:nth-of-type(2)").value.trim();
+            let abbreviation = document.querySelector("input:nth-of-type(3)").value.trim();
+            let buy_rate = document.querySelector("input:nth-of-type(4)").value.trim();
+            let sell_rate = document.querySelector("input:nth-of-type(5)").value.trim();
+    
+            if (!country || !currency || !abbreviation || !buy_rate || !sell_rate) {
+                alert("All fields are required!");
+                return;
+            }
+    
+            let currencyData = {
+                country,
+                currency,
+                abbreviation,
+                buy_rate,
+                sell_rate
+            };
+    
+            console.log(currencyData)
+            // Send data to the main window
+            //window.opener.postMessage(currencyData, "*"); 
+            window.opener.postMessage(currencyData, "http://localhost");
+            alert("Currency Added Successfully!");
+    
+            window.close(); // Close edit window
+        });
+    
+        document.querySelector('.cancel-btn').addEventListener('click', () => {
+            window.close(); // Close the edit currency page on cancel
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+        }
+
+        .header {
+            background-color: #2e6f26;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 500px;
+            background: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .input-text {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .upload-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .upload-btn {
+            padding: 6px 10px;
+            border: 1px solid #999;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .upload-preview {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7em;
+            color: #999;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .input-area {
+            width: 100%;
+            padding: 8px;
+            height: 60px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 10px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+            
+        }
+
+        .icon {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        Settings
+    </div>
+
+    <div class="container">
+        <div class="form-group">
+            <label><span class="icon">💼</span>COMPANY NAME:</label>
+            <input type="text" class="input-text" value="">
+        </div>
+
+        <div class="form-group">
+            <label><span class="icon">📷</span>COMPANY LOGO:</label>
+            <div class="upload-section">
+                <button class="upload-btn">Upload Logo</button>
+                <div class="upload-preview">No image</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Base Currency:</label>
+            <input type="text" class="input-text" value="">
+        </div>
+
+        <div class="form-group">
+            <label>Currency Decimal Places:</label>
+            <input type="number" class="input-text" value="">
+        </div>
+
+        <div class="form-group">
+            <label><span class="icon">📅</span>DATE FORMAT:</label>
+            <input type="text" class="input-text" value="">
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="timeFormat">
+            <label for="timeFormat">Use 24-hour Time Format</label>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="disclaimer" checked>
+            <label for="disclaimer">Disclaimer Message:</label>
+        </div>
+
+        <textarea class="input-area"></textarea>
+
+        <div class="form-group">
+            <label><span class="icon">🎤</span>ANNOUNCEMENT:</label>
+            <textarea class="input-area">....</textarea>
+        </div>
+
+        <button class="save-btn">Save</button>
+    </div>
+
+    <script>
+        document.querySelector('.upload-btn').addEventListener('click', function () {
+            alert("This is where you will add your upload logic.");
+        });
+
+        document.querySelector('.save-btn').addEventListener('click', function () {
+            alert("Settings saved successfully!");
+        });
+    </script>
+
+</body>
+
+</html>
