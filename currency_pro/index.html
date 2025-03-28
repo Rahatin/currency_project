@@ -23,6 +23,7 @@
                 <th>Currency</th>
                 <th>Buy Rate</th>
                 <th>Sell Rate</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody id="currencyTable">
@@ -31,12 +32,21 @@
                 <td>United States Dollar</td>
                 <td>121.00</td>
                 <td>122.00</td>
+                <td>
+                    <button onclick="editRow(this)">Edit</button>
+                    <button onclick="deleteRow(this)">Delete</button>
+                </td>
             </tr>
+
             <tr>
                 <td><img src="https://flagcdn.com/ca.svg" alt="Canada" width="25"> CAD</td>
                 <td>Canadian Dollar</td>
                 <td>84.24</td>
                 <td>85.46</td>
+                <td>
+                    <button onclick="editRow(this)">Edit</button>
+                    <button onclick="deleteRow(this)">Delete</button>
+                </td>
             </tr>  -->
         </tbody>
     </table>
@@ -45,6 +55,7 @@
         <button onclick="addCurrency()">+ Add Currency</button>
         <button onclick="publish()">Publish</button>
     </div>
+  
 
     <script>
         async function fetchCurrencies() {
@@ -86,6 +97,7 @@
                     <td>${currency.currency}</td>
                     <td>${currency.buy_rate}</td>
                     <td>${currency.sell_rate}</td>
+                    <td><button  onclick="editRow(this)">Edit</button> <button dl_id="${currency.id}" onclick="deleteRow(this)">Delete</button></td>
                 `;
             });
     
@@ -95,6 +107,45 @@
     
         // Call function on page load
         document.addEventListener("DOMContentLoaded", fetchCurrencies);
+
+        function editRow(button) {
+            let row = button.closest('tr');
+            let cells = row.querySelectorAll('td');
+            let buyRate = cells[2];
+            let sellRate = cells[3];
+            let currency = cells[1];
+
+            let newcurrency = prompt("Enter newcurrency:", currency.innerText);
+            let newBuyRate = prompt("Enter new Buy Rate:", buyRate.innerText);
+            let newSellRate = prompt("Enter new Sell Rate:", sellRate.innerText);
+            
+            if (newBuyRate) buyRate.innerText = newBuyRate;
+            if (newSellRate) sellRate.innerText = newSellRate;
+            if (newcurrency) currency.innerText = newcurrency;
+        }
+
+        function deleteRow(button) {
+            let dlId = button.getAttribute("dl_id");
+            let row = button.closest('tr');
+            
+            fetch(`http://127.0.0.1:8000/currencies/${dlId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    row.remove()
+                } else {
+                    alert("Failed to delete currency.");
+                }
+            })
+            .catch(error => {
+                console.error("Error deleting currency:", error);
+                alert("An error occurred while deleting the currency.");
+            });
+        }
     </script>
     
     
@@ -138,7 +189,7 @@
             alert("Currency added successfully!");
         }, false);
     </script>
-    
+
     
     <script>
         function publish() {
