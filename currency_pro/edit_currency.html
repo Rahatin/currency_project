@@ -75,21 +75,6 @@
             color: white;
         }
 
-        .flag {
-            vertical-align: middle;
-            margin-right: 8px;
-        }
-
-        .rate-info {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .rate-info a {
-            color: #2e6b23;
-            text-decoration: none;
-        }
     </style>
 </head>
 
@@ -99,23 +84,23 @@
     </div>
     <div class="container">
         <label>Country:</label>
-        <input type="text" value="">
+        <input type="text" id="country" value="">
 
         <label>Currency Name:</label>
-        <input type="text" value="">
+        <input type="text" id="currency" value="">
 
         <label>Abbreviation:</label>
-        <input type="text" value="">
+        <input type="text" id="abbreviation" value="">
 
         <div class="radio">
             <input type="radio" checked> Manual Update
         </div>
 
         <label>Buy:</label>
-        <input type="number" value="">
+        <input type="number" id="buy_rate" value="">
 
         <label>Sell:</label>
-        <input type="number" value="">
+        <input type="number" id="sell_rate" value="">
 
         <div class="buttons">
             <button class="cancel-btn">✖ Cancel</button>
@@ -124,18 +109,48 @@
     </div>
 
     <script>
+
+    // window.onload = function () {
+    //     let formData = new URLSearchParams(window.location.search);
+        
+    //     document.querySelector("input:nth-of-type(1)").value = formData.get("country") || "";
+    //     document.querySelector("input:nth-of-type(2)").value = formData.get("currency") || "";
+    //     document.querySelector("input:nth-of-type(3)").value = formData.get("abbreviation") || "";
+    //     document.querySelector("input:nth-of-type(4)").value = formData.get("buy_rate") || "";
+    //     document.querySelector("input:nth-of-type(5)").value = formData.get("sell_rate") || "";
+    // };
+
+
+
+        window.onload = function () {
+            let cellsData = localStorage.getItem("cellsData");
+          
+        if (cellsData) {
+           
+            cellsData = JSON.parse(cellsData);
+             
+            // Ensure form fields exist before assigning values
+            document.querySelector("input:nth-of-type(1)").value = cellsData.country || "";
+            document.querySelector("input:nth-of-type(2)").value = cellsData.currency || "";
+            document.querySelector("input:nth-of-type(3)").value = cellsData.abbreviation || "";
+            document.querySelector("input:nth-of-type(4)").value = cellsData.buy_rate || "";
+            document.querySelector("input:nth-of-type(5)").value = cellsData.sell_rate || "";
+        }
+        };
+        
+
         document.querySelector('.update-btn').addEventListener('click', () => {
             let country = document.querySelector("input:nth-of-type(1)").value.trim();
             let currency = document.querySelector("input:nth-of-type(2)").value.trim();
             let abbreviation = document.querySelector("input:nth-of-type(3)").value.trim();
             let buy_rate = document.querySelector("input:nth-of-type(4)").value.trim();
             let sell_rate = document.querySelector("input:nth-of-type(5)").value.trim();
-    
+
             if (!country || !currency || !abbreviation || !buy_rate || !sell_rate) {
                 alert("All fields are required!");
                 return;
             }
-    
+
             let currencyData = {
                 country,
                 currency,
@@ -143,18 +158,15 @@
                 buy_rate,
                 sell_rate
             };
-    
-            console.log(currencyData)
-            // Send data to the main window
-            //window.opener.postMessage(currencyData, "*"); 
+
+            console.log(currencyData);
             window.opener.postMessage(currencyData, "http://localhost");
-            alert("Currency Added Successfully!");
-    
-            window.close(); // Close edit window
+            alert("Currency Updated Successfully!");
+            window.close();
         });
-    
+
         document.querySelector('.cancel-btn').addEventListener('click', () => {
-            window.close(); // Close the edit currency page on cancel
+            window.close();
         });
     </script>
 </body>

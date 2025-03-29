@@ -84,7 +84,14 @@
                  updateTable(dummyData); // Load dummy data if API fails
             }
         }
-    
+        // function editCurrency(cellsData) {
+        //     window.open("edit_currency.html", "Edit Currency", "width=400,height=500");
+        // }
+
+        function editCurrency(cellsData) {
+    localStorage.setItem("cellsData", JSON.stringify(cellsData));
+    window.open("edit_currency.html", "Edit Currency", "width=400,height=500");
+}
         function updateTable(data) {
         
             let table = document.getElementById("currencyTable");
@@ -107,22 +114,76 @@
     
         // Call function on page load
         document.addEventListener("DOMContentLoaded", fetchCurrencies);
+//         function editRow(button) {
+//             let row = button.closest("tr");
+//             let cells = row.querySelectorAll("td");
+
+//             let currencyData = {
+//                 country: cells[0].innerText.trim(),
+//                 currency: cells[1].innerText.trim(),
+//                 abbreviation: cells[0].querySelector("img").alt,
+//                 buy_rate: cells[2].innerText.trim(),
+//                 sell_rate: cells[3].innerText.trim()
+//     };
+
+//     // Create a form dynamically
+//             let form = document.createElement("form");
+//             form.method = "POST";
+//             form.action = "edit_currency.html";
+//             form.style.display = "none";
+
+//     // Append data as hidden fields
+//     for (let key in currencyData) {
+//         let input = document.createElement("input");
+//         input.type = "hidden";
+//         input.name = key;
+//         input.value = currencyData[key];
+//         form.appendChild(input);
+//     }
+
+//     document.body.appendChild(form);
+//     form.submit(); // Submit form to open edit_currency.html with POST data
+// }
+   
+        
+
 
         function editRow(button) {
-            let row = button.closest('tr');
-            let cells = row.querySelectorAll('td');
-            let buyRate = cells[2];
-            let sellRate = cells[3];
-            let currency = cells[1];
+            let row = button.closest("tr");
+            let cells = row.querySelectorAll("td");
 
-            let newcurrency = prompt("Enter newcurrency:", currency.innerText);
-            let newBuyRate = prompt("Enter new Buy Rate:", buyRate.innerText);
-            let newSellRate = prompt("Enter new Sell Rate:", sellRate.innerText);
-            
-            if (newBuyRate) buyRate.innerText = newBuyRate;
-            if (newSellRate) sellRate.innerText = newSellRate;
-            if (newcurrency) currency.innerText = newcurrency;
+            let currencyData = {
+                country: cells[0].innerText.trim(),
+                currency: cells[1].innerText.trim(),
+                abbreviation: cells[0].querySelector("img").alt,
+                buy_rate: cells[2].innerText.trim(),
+                sell_rate: cells[3].innerText.trim()
+            };
+            console.log(currencyData)
+
+            editCurrency(currencyData);
         }
+        
+
+
+        // function editRow(button) {
+        //     let row = button.closest('tr');
+        //     let cells = row.querySelectorAll('td');
+            
+        //     editCurrency(cells)
+
+        //     // let buyRate = cells[2];
+        //     // let sellRate = cells[3];
+        //     // let currency = cells[1];
+
+        //     // let newcurrency = prompt("Enter newcurrency:", currency.innerText);
+        //     // let newBuyRate = prompt("Enter new Buy Rate:", buyRate.innerText);
+        //     // let newSellRate = prompt("Enter new Sell Rate:", sellRate.innerText);
+            
+        //     // if (newBuyRate) buyRate.innerText = newBuyRate;
+        //     // if (newSellRate) sellRate.innerText = newSellRate;
+        //     // if (newcurrency) currency.innerText = newcurrency;
+        // }
 
         function deleteRow(button) {
             let dlId = button.getAttribute("dl_id");
@@ -151,19 +212,20 @@
     
     <script>
         function addCurrency() {
+            localStorage.setItem("cellsData", null);
             window.open("edit_currency.html", "Edit Currency", "width=400,height=500");
         }
+       
     
         // Listen for messages from the opened window
         window.addEventListener("message", function(event) {
-
-            if (event.origin !== "http://127.0.0.1:8000" && event.origin !== "http://localhost") {
+             if (event.origin !== "http://127.0.0.1:8000" && event.origin !== "http://localhost") {
             console.warn("Message from unknown origin", event.origin);
             return;
             }
-
             if (!event.data || typeof event.data !== "object") return; // Prevent errors
-            console.log(event.data.JSON)
+            console.log("Received Data:", event.data);
+            
             let { country, currency, abbreviation, buy_rate, sell_rate } = event.data;
             
             if (!country || !currency || !abbreviation || !buy_rate || !sell_rate) {
